@@ -1,0 +1,1834 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/2/2020 8:50:33 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="TSIAPP699"
+  DTS:CreatorName="CAJADEAHORROS\OvidioG"
+  DTS:DTSID="{9C1B468C-65A2-4335-BF26-5BB9D662D26C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.93"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="SEGOPER_PPAGOS"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="2"
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{B25F7BF5-8EC7-4B67-8B2B-00FCC9341FDD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AS400]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AAD38C53-6AC5-494C-996C-6B5B5CD54450}"
+      DTS:ObjectName="AS400">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=TSILPRU5;User ID=CAHSEGOPER;Initial Catalog=TSILPRU5;Provider=IBMDA400.DataSource.1;Default Collection=CAHCYFILES;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AD0B33B2-565B-4B62-9E90-F301678D5997}"
+      DTS:ObjectName="SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=SEGOPER_IBS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\PROC PLAN DE PAGO"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{6f1841d1-e7d9-4bc0-8267-b7e2573a2c19}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="PROC PLAN DE PAGO"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AAD38C53-6AC5-494C-996C-6B5B5CD54450}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="CALL CAHUSRLIB.SP_PPAGOSP(?)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::RESP"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="16"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\PSEGURIE"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3d1a0b74-a8ef-4420-a16f-eb1b8fb45272}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="PSEGURIE"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\PSEGURIE\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[PSEGURIE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\PSEGURIE\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSACC]"
+                      cachedDataType="decimal"
+                      cachedName="DLSACC"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSACC]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLPPNU]"
+                      cachedDataType="decimal"
+                      cachedName="DLPPNU"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPNU]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSCDE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="DLSCDE"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSCDE]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSAMT]"
+                      cachedDataType="decimal"
+                      cachedName="DLSAMT"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSAMT]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSAMT]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSPDY]"
+                      cachedDataType="numeric"
+                      cachedName="DLSPDY"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPDY]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDY]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSPDM]"
+                      cachedDataType="numeric"
+                      cachedName="DLSPDM"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPDM]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDM]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSPDD]"
+                      cachedDataType="numeric"
+                      cachedName="DLSPDD"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPDD]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDD]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLPPFL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="DLPPFL"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPFL]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPFL]" />
+                    <inputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSPFL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="DLSPFL"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPFL]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPFL]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSACC]"
+                      dataType="numeric"
+                      name="DLSACC"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPNU]"
+                      dataType="numeric"
+                      name="DLPPNU"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DLSCDE" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSAMT]"
+                      dataType="numeric"
+                      name="DLSAMT"
+                      precision="28"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPDY]"
+                      dataType="numeric"
+                      name="DLSPDY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPDM]"
+                      dataType="numeric"
+                      name="DLSPDM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPDD]"
+                      dataType="numeric"
+                      name="DLSPDD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DLPPFL" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DLSPFL" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\PSEGURIE\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\PSEGURIE\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+DLSACC,
+DLPPNU,
+DLSCDE,
+DLSAMT,
+DLSPDY,
+DLSPDM,
+DLSPDD,
+DLPPFL,
+DLSPFL
+FROM PSEGURIE</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\PSEGURIE\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AS400]"
+                  connectionManagerRefId="Package.ConnectionManagers[AS400]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSACC]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]"
+                      name="DLSACC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPNU]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]"
+                      name="DLPPNU"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSCDE]"
+                      length="4"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]"
+                      name="DLSCDE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSAMT]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSAMT]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSAMT]"
+                      name="DLSAMT"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPDY]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDY]"
+                      name="DLSPDY"
+                      precision="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDM]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPDM]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDM]"
+                      name="DLSPDM"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDD]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPDD]"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPDD]"
+                      name="DLSPDD"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPFL]"
+                      length="1"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPFL]"
+                      name="DLPPFL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPFL]"
+                      length="1"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPFL]"
+                      name="DLSPFL"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSACC]"
+                      dataType="decimal"
+                      name="DLSACC" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPNU]"
+                      dataType="decimal"
+                      name="DLPPNU" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DLSCDE" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSAMT]"
+                      dataType="decimal"
+                      name="DLSAMT"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPDY]"
+                      dataType="numeric"
+                      name="DLSPDY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPDM]"
+                      dataType="numeric"
+                      name="DLSPDM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPDD]"
+                      dataType="numeric"
+                      name="DLSPDD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DLPPFL" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="DLSPFL" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSACC]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSACC]"
+                      name="DLSACC" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPNU]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPNU]"
+                      name="DLPPNU" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSCDE]"
+                      name="DLSCDE" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSAMT]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSAMT]"
+                      name="DLSAMT"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPDY]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPDY]"
+                      name="DLSPDY"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPDM]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPDM]"
+                      name="DLSPDM"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPDD]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPDD]"
+                      name="DLSPDD"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPFL]"
+                      name="DLPPFL" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPFL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPFL]"
+                      name="DLSPFL" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\PSEGURIE.Paths[OLE DB Source Output]"
+              endId="Package\PSEGURIE\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\PSEGURIE\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\PSEGURIP"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4f3f7b65-593f-47c0-bb0a-59df2dd75941}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="PSEGURIP"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\PSEGURIP\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[PSEGURIP]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\PSEGURIP\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSACC]"
+                      cachedDataType="decimal"
+                      cachedName="DLSACC"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSACC]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSCDE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="DLSCDE"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSCDE]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSPAD]"
+                      cachedDataType="decimal"
+                      cachedName="DLSPAD"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPAD]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPAD]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSDTY]"
+                      cachedDataType="numeric"
+                      cachedName="DLSDTY"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTY]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTY]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSDTM]"
+                      cachedDataType="numeric"
+                      cachedName="DLSDTM"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTM]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTM]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSDTD]"
+                      cachedDataType="numeric"
+                      cachedName="DLSDTD"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTD]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTD]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSOGL]"
+                      cachedDataType="decimal"
+                      cachedName="DLSOGL"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSOGL]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSOGL]" />
+                    <inputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLPPNU]"
+                      cachedDataType="decimal"
+                      cachedName="DLPPNU"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPNU]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSACC]"
+                      dataType="numeric"
+                      name="DLSACC"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DLSCDE" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPAD]"
+                      dataType="numeric"
+                      name="DLSPAD"
+                      precision="28"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTY]"
+                      dataType="numeric"
+                      name="DLSDTY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTM]"
+                      dataType="numeric"
+                      name="DLSDTM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTD]"
+                      dataType="numeric"
+                      name="DLSDTD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSOGL]"
+                      dataType="numeric"
+                      name="DLSOGL"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPNU]"
+                      dataType="numeric"
+                      name="DLPPNU"
+                      precision="28" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\PSEGURIP\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIP\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\PSEGURIP\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+DLSACC,
+DLSCDE,
+DLSPAD,
+DLSDTY,
+DLSDTM,
+DLSDTD,
+DLSOGL,
+DLPPNU
+FROM PSEGURIP</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\PSEGURIP\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AS400]"
+                  connectionManagerRefId="Package.ConnectionManagers[AS400]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSACC]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]"
+                      name="DLSACC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSCDE]"
+                      length="4"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]"
+                      name="DLSCDE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPAD]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPAD]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPAD]"
+                      name="DLSPAD"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTY]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTY]"
+                      name="DLSDTY"
+                      precision="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTM]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTM]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTM]"
+                      name="DLSDTM"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTD]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTD]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTD]"
+                      name="DLSDTD"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSOGL]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSOGL]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSOGL]"
+                      name="DLSOGL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPNU]"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]"
+                      name="DLPPNU"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSACC]"
+                      dataType="decimal"
+                      name="DLSACC" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DLSCDE" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPAD]"
+                      dataType="decimal"
+                      name="DLSPAD"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTY]"
+                      dataType="numeric"
+                      name="DLSDTY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTM]"
+                      dataType="numeric"
+                      name="DLSDTM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTD]"
+                      dataType="numeric"
+                      name="DLSDTD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSOGL]"
+                      dataType="decimal"
+                      name="DLSOGL" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPNU]"
+                      dataType="decimal"
+                      name="DLPPNU" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSACC]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSACC]"
+                      name="DLSACC" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSCDE]"
+                      name="DLSCDE" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPAD]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPAD]"
+                      name="DLSPAD"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTY]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTY]"
+                      name="DLSDTY"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTM]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTM]"
+                      name="DLSDTM"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTD]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTD]"
+                      name="DLSDTD"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSOGL]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSOGL]"
+                      name="DLSOGL" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPNU]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPNU]"
+                      name="DLPPNU" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\PSEGURIP.Paths[OLE DB Source Output]"
+              endId="Package\PSEGURIP\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\PSEGURIP\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\PSEGURIPF"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{17D646D9-7A2C-46AB-BC7B-1085DBB89DD9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="PSEGURIPF"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\PSEGURIPF\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PSEGURIP]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\PSEGURIPF\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSACC]"
+                      cachedDataType="decimal"
+                      cachedName="DLSACC"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSACC]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSCDE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="DLSCDE"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSCDE]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSPAD]"
+                      cachedDataType="decimal"
+                      cachedName="DLSPAD"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPAD]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPAD]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSDTY]"
+                      cachedDataType="numeric"
+                      cachedName="DLSDTY"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTY]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTY]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSDTM]"
+                      cachedDataType="numeric"
+                      cachedName="DLSDTM"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTM]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTM]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSDTD]"
+                      cachedDataType="numeric"
+                      cachedName="DLSDTD"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTD]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTD]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLSOGL]"
+                      cachedDataType="decimal"
+                      cachedName="DLSOGL"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSOGL]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSOGL]" />
+                    <inputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DLPPNU]"
+                      cachedDataType="decimal"
+                      cachedName="DLPPNU"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPNU]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSACC]"
+                      dataType="numeric"
+                      name="DLSACC"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DLSCDE" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSPAD]"
+                      dataType="numeric"
+                      name="DLSPAD"
+                      precision="28"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTY]"
+                      dataType="numeric"
+                      name="DLSDTY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTM]"
+                      dataType="numeric"
+                      name="DLSDTM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSDTD]"
+                      dataType="numeric"
+                      name="DLSDTD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLSOGL]"
+                      dataType="numeric"
+                      name="DLSOGL"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DLPPNU]"
+                      dataType="numeric"
+                      name="DLPPNU"
+                      precision="28" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\PSEGURIPF\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIPF\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIPF\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\PSEGURIPF\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
+DLSACC,
+DLSCDE,
+DLSPAD,
+DLSDTY,
+DLSDTM,
+DLSDTD,
+DLSOGL,
+DLPPNU
+FROM PSEGURIPF</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\PSEGURIPF\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AS400]"
+                  connectionManagerRefId="Package.ConnectionManagers[AS400]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSACC]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSACC]"
+                      name="DLSACC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSCDE]"
+                      length="4"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSCDE]"
+                      name="DLSCDE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPAD]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPAD]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSPAD]"
+                      name="DLSPAD"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTY]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTY]"
+                      name="DLSDTY"
+                      precision="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTM]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTM]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTM]"
+                      name="DLSDTM"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTD]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTD]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSDTD]"
+                      name="DLSDTD"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSOGL]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSOGL]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLSOGL]"
+                      name="DLSOGL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPNU]"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].Columns[DLPPNU]"
+                      name="DLPPNU"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSACC]"
+                      dataType="decimal"
+                      name="DLSACC" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="DLSCDE" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSPAD]"
+                      dataType="decimal"
+                      name="DLSPAD"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTY]"
+                      dataType="numeric"
+                      name="DLSDTY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTM]"
+                      dataType="numeric"
+                      name="DLSDTM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSDTD]"
+                      dataType="numeric"
+                      name="DLSDTD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLSOGL]"
+                      dataType="decimal"
+                      name="DLSOGL" />
+                    <externalMetadataColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DLPPNU]"
+                      dataType="decimal"
+                      name="DLPPNU" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSACC]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSACC]"
+                      name="DLSACC" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSCDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSCDE]"
+                      name="DLSCDE" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPAD]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSPAD]"
+                      name="DLSPAD"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTY]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTY]"
+                      name="DLSDTY"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTM]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTM]"
+                      name="DLSDTM"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTD]"
+                      dataType="numeric"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSDTD]"
+                      name="DLSDTD"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSOGL]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLSOGL]"
+                      name="DLSOGL" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPNU]"
+                      dataType="decimal"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DLPPNU]"
+                      name="DLPPNU" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\PSEGURIPF.Paths[OLE DB Source Output]"
+              endId="Package\PSEGURIPF\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\PSEGURIPF\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLES"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{61998566-C413-4A15-A98B-A0CFB760CE99}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLES"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AD0B33B2-565B-4B62-9E90-F301678D5997}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE PSEGURIE&#xA;GO&#xA;TRUNCATE TABLE PSEGURIP" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{BA965C9D-27BF-4666-9CFE-5719E11BD981}"
+      DTS:From="Package\TRUNCATE TABLES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\PSEGURIE" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 12]"
+      DTS:CreationName=""
+      DTS:DTSID="{20d90af1-d32f-44b8-9d1c-8a83d5834262}"
+      DTS:From="Package\PSEGURIE"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 12"
+      DTS:To="Package\PSEGURIP" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\PROC PLAN DE PAGO"
+          TopLeft="464,112" />
+        <NodeLayout
+          Size="128,42"
+          Id="Package\PSEGURIE"
+          TopLeft="216,97" />
+        <NodeLayout
+          Size="127,42"
+          Id="Package\PSEGURIP"
+          TopLeft="211,197" />
+        <NodeLayout
+          Size="133,42"
+          Id="Package\PSEGURIPF"
+          TopLeft="477,190" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\TRUNCATE TABLES"
+          TopLeft="196,8" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="280.5,50">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 12]"
+          TopLeft="277.25,139">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\PSEGURIE">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150,42"
+          Id="Package\PSEGURIE\OLE DB Source"
+          TopLeft="285,40" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\PSEGURIE\OLE DB Destination"
+          TopLeft="274,163" />
+        <EdgeLayout
+          Id="Package\PSEGURIE.Paths[OLE DB Source Output]"
+          TopLeft="359.75,82">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,81"
+              Start="0,0"
+              End="0,73.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\PSEGURIE\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\PSEGURIP">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\PSEGURIP\OLE DB Destination"
+          TopLeft="243,143" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\PSEGURIP\OLE DB Source"
+          TopLeft="252,20" />
+        <EdgeLayout
+          Id="Package\PSEGURIP.Paths[OLE DB Source Output]"
+          TopLeft="327.75,62">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,81"
+              Start="0,0"
+              End="0,73.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\PSEGURIP\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\PSEGURIPF">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="171,42"
+          Id="Package\PSEGURIPF\OLE DB Destination"
+          TopLeft="295,153" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\PSEGURIPF\OLE DB Source"
+          TopLeft="312,29" />
+        <EdgeLayout
+          Id="Package\PSEGURIPF.Paths[OLE DB Source Output]"
+          TopLeft="383.75,71">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,82"
+              Start="0,0"
+              End="0,74.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,74.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\PSEGURIPF\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\PSEGURIPF\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

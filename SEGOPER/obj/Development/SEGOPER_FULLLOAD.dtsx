@@ -1,0 +1,780 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/13/2020 5:13:07 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="TSIAPP699"
+  DTS:CreatorName="CAJADEAHORROS\OvidioG"
+  DTS:DTSID="{17A8D145-16F8-4BF6-8675-D1697D358CD4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.93"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="SEGOPER_FULLLOAD"
+  DTS:PackageType="5"
+  DTS:VersionBuild="68"
+  DTS:VersionGUID="{45B6DC05-BE2D-4D9E-B20E-D25DACCB61B5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AS400]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AAD38C53-6AC5-494C-996C-6B5B5CD54450}"
+      DTS:ObjectName="AS400">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=TSILPRU5;User ID=CAHSEGOPER;Initial Catalog=TSILPRU5;Provider=IBMDA400.DataSource.1;Default Collection=CAHCYFILES;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AS400.NET]"
+      DTS:CreationName="ADO.NET:IBM.Data.DB2.iSeries.iDB2Connection, IBM.Data.DB2.iSeries, Version=12.0.0.0, Culture=neutral, PublicKeyToken=9cdb2ebfb1f93a26"
+      DTS:DTSID="{31B7EC20-57BB-4F09-9CCF-C3D2A0383482}"
+      DTS:ObjectName="AS400.NET">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="DataSource=TSILPRU5;UserID=CAHSEGOPER;DefaultCollection=CAHCYFILES;Naming=SQL;Database=TSILPRU5;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AD0B33B2-565B-4B62-9E90-F301678D5997}"
+      DTS:ObjectName="SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=TSIAPP699;Initial Catalog=SEGOPER_IBS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQL.NET]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{AD36C29A-6BCF-4762-ABD5-FCDBB7D04C08}"
+      DTS:ObjectName="SQL.NET">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=TSIAPP699;Initial Catalog=SEGOPER_IBS;Integrated Security=True;Application Name=SSIS-SEGOPER_DIFFLOAD-{AD36C29A-6BCF-4762-ABD5-FCDBB7D04C08}LOCALHOST.SEGOPER_IBS;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4323CEFA-814F-4280-B3E9-AC56C378880B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RESP">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\TRANS"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{79489194-A27C-4B7A-8515-208FEDD14148}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRANS"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\TRANS\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[TRANS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\TRANS\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQL]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQL]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRAGLN]"
+                      cachedDataType="decimal"
+                      cachedName="TRAGLN"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRAGLN]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAGLN]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[GLMDSC]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="GLMDSC"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[GLMDSC]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[GLMDSC]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRABDY]"
+                      cachedDataType="numeric"
+                      cachedName="TRABDY"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRABDY]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDY]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRABDM]"
+                      cachedDataType="numeric"
+                      cachedName="TRABDM"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRABDM]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDM]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRABDD]"
+                      cachedDataType="numeric"
+                      cachedName="TRABDD"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRABDD]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDD]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRAACC]"
+                      cachedDataType="decimal"
+                      cachedName="TRAACC"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRAACC]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAACC]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRANAR]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="TRANAR"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRANAR]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRANAR]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRAAMT]"
+                      cachedDataType="decimal"
+                      cachedName="TRAAMT"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRAAMT]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAAMT]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRADCC]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="TRADCC"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRADCC]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRADCC]" />
+                    <inputColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TRACDE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="TRACDE"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRACDE]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRACDE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRAGLN]"
+                      dataType="numeric"
+                      name="TRAGLN"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[GLMDSC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="GLMDSC" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRABDY]"
+                      dataType="numeric"
+                      name="TRABDY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRABDM]"
+                      dataType="numeric"
+                      name="TRABDM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRABDD]"
+                      dataType="numeric"
+                      name="TRABDD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRAACC]"
+                      dataType="numeric"
+                      name="TRAACC"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRANAR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="TRANAR" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRAAMT]"
+                      dataType="numeric"
+                      name="TRAAMT"
+                      precision="28"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRADCC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TRADCC" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TRACDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="TRACDE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\TRANS\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\TRANS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\TRANS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\TRANS\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    TRAGLN
+    ,GLMDSC
+    ,TRABDY
+    ,TRABDM
+    ,TRABDD
+    ,TRAACC
+    ,TRANAR
+    ,TRAAMT
+    ,TRADCC
+    ,TRACDE
+FROM TRANS A
+    LEFT JOIN GLMST B ON A.TRAGLN = GLMGLN
+    INNER JOIN SIB752FW C ON A.TRAACC = C.SSDACC</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\TRANS\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[AS400]"
+                  connectionManagerRefId="Package.ConnectionManagers[AS400]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAGLN]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRAGLN]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAGLN]"
+                      name="TRAGLN"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[GLMDSC]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[GLMDSC]"
+                      length="60"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[GLMDSC]"
+                      name="GLMDSC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRABDY]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDY]"
+                      name="TRABDY"
+                      precision="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDM]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRABDM]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDM]"
+                      name="TRABDM"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDD]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRABDD]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRABDD]"
+                      name="TRABDD"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAACC]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRAACC]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAACC]"
+                      name="TRAACC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRANAR]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRANAR]"
+                      length="60"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRANAR]"
+                      name="TRANAR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAAMT]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRAAMT]"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRAAMT]"
+                      name="TRAAMT"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRADCC]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRADCC]"
+                      length="1"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRADCC]"
+                      name="TRADCC"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRACDE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRACDE]"
+                      length="4"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].Columns[TRACDE]"
+                      name="TRACDE"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRAGLN]"
+                      dataType="decimal"
+                      name="TRAGLN" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[GLMDSC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="GLMDSC" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRABDY]"
+                      dataType="numeric"
+                      name="TRABDY"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRABDM]"
+                      dataType="numeric"
+                      name="TRABDM"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRABDD]"
+                      dataType="numeric"
+                      name="TRABDD"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRAACC]"
+                      dataType="decimal"
+                      name="TRAACC" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRANAR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="TRANAR" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRAAMT]"
+                      dataType="decimal"
+                      name="TRAAMT"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRADCC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="TRADCC" />
+                    <externalMetadataColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TRACDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="TRACDE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRAGLN]"
+                      dataType="decimal"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRAGLN]"
+                      name="TRAGLN" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[GLMDSC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[GLMDSC]"
+                      name="GLMDSC" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRABDY]"
+                      dataType="numeric"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRABDY]"
+                      name="TRABDY"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRABDM]"
+                      dataType="numeric"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRABDM]"
+                      name="TRABDM"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRABDD]"
+                      dataType="numeric"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRABDD]"
+                      name="TRABDD"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRAACC]"
+                      dataType="decimal"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRAACC]"
+                      name="TRAACC" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRANAR]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRANAR]"
+                      name="TRANAR" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRAAMT]"
+                      dataType="decimal"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRAAMT]"
+                      name="TRAAMT"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRADCC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRADCC]"
+                      name="TRADCC" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRACDE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TRACDE]"
+                      name="TRACDE" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\TRANS.Paths[OLE DB Source Output]"
+              endId="Package\TRANS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\TRANS\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE TABLES"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
+      DTS:DTSID="{F0784673-1874-40D3-B977-EB6C245004AF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE TABLES"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AD0B33B2-565B-4B62-9E90-F301678D5997}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE TRANS&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6582C05E-FEE3-4B08-BB56-FE6F2184F49C}"
+      DTS:From="Package\TRUNCATE TABLES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\TRANS" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="111,42"
+          Id="Package\TRANS"
+          TopLeft="292,137" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\TRUNCATE TABLES"
+          TopLeft="269,36" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="350.75,78">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\TRANS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="150,42"
+          Id="Package\TRANS\OLE DB Source"
+          TopLeft="211,58" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\TRANS\OLE DB Destination"
+          TopLeft="203,192" />
+        <EdgeLayout
+          Id="Package\TRANS.Paths[OLE DB Source Output]"
+          TopLeft="287.25,100">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,92"
+              Start="0,0"
+              End="0,84.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,84.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\TRANS\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\TRANS\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

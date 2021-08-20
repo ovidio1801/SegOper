@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectInfo>
+    <Name>SEGOPER</Name>
+    <LastWriteTime>2021-04-22T07:46:41.7401131Z</LastWriteTime>
+    <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
+    <Salt>7E01Thh0</Salt>
+    <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqA+aRoHEGU+NvTJthd6lfAAAAAACAAAAAAADZgAAwAAAABAAAABNnUC/YN1IiyYp99yPusQFAAAAAASAAACgAAAAEAAAAOTEgTiAeohjhCCQCYv2Xv0oAAAAEjKopg+5YqzDuz54YfOfN9uG8qQrTpJUUihpjT+9PfQTvSADCnLqohQAAACNmAz0k7iWOd1hp7qRRZoExvD1KA==</LastKnownProtectedHashedPassword>
+  </ProjectInfo>
+  <LastBuildInfos>
+    <ProjectBuildItemInfo>
+      <Name>SEGOPER_DIFFLOAD.dtsx</Name>
+      <LastWriteTime>2021-06-30T16:45:48.9942191Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
+      <Salt>e48KWulQ</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqA+aRoHEGU+NvTJthd6lfAAAAAACAAAAAAADZgAAwAAAABAAAACEPlrwl/gv2WcJ1p23oNGgAAAAAASAAACgAAAAEAAAAIV3g6Nfh7bo8cYYCyUoEhYoAAAA/IzZW58JqH+OQcGqGedX91kFdCOO360e3ywJojQ04QH8Z6l91iU5/xQAAADQ6D7oXFuZpJo5TLVCurJy1dtyzA==</LastKnownProtectedHashedPassword>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>SEGOPER_PPAGOS.dtsx</Name>
+      <LastWriteTime>2021-04-22T07:59:47.5633406Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
+      <Salt>T2WwTW7S</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqA+aRoHEGU+NvTJthd6lfAAAAAACAAAAAAADZgAAwAAAABAAAAAhdd3qU8Wil3MrY/DUy/v/AAAAAASAAACgAAAAEAAAALpAPy8HDgMCnfg7CuFfDIAoAAAABbkZaIijIPZmxuHFRNq9cwpZJY5sP0XXmqBvU9jzVWE2lXnLfQxCXhQAAADjEJyEmccHJDaSUqxXIGLTnbHGXA==</LastKnownProtectedHashedPassword>
+    </ProjectBuildItemInfo>
+  </LastBuildInfos>
+</BuildLog>

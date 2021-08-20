@@ -1,0 +1,5 @@
+use SEGOPER_IBS
+
+alter table ENDOSADAS
+ADD ROCRGK VARCHAR(1) NULL
+
